@@ -5,13 +5,13 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // >>> EDITE ESTA LISTA com os e-mails das 3 sócias <<<
+    // E-mails autorizados — as 3 sócias da DSS Hub.
     function emailAutorizado() {
       return request.auth != null &&
         request.auth.token.email in [
-          'danyy.jonathan@gmail.com'
-          // , 'socia2@gmail.com'
-          // , 'socia3@gmail.com'
+          'danyy.jonathan@gmail.com',
+          'simonedasilvasantos173@gmail.com',
+          'suellengarcia.silva@gmail.com'
         ];
     }
 
