@@ -36,8 +36,14 @@ const config = {
   appId: limpa(import.meta.env.VITE_FIREBASE_APP_ID, RESERVA.appId),
 };
 
+/** Modo demonstração forçado (só para desenvolvimento/testes de UI local):
+ * rode `VITE_DEMO=1 npm run dev` para usar login fake + localStorage e conseguir
+ * navegar por todas as telas sem depender do login Google. Em produção fica desligado. */
+const demoForcado = import.meta.env.VITE_DEMO === "1";
+
 /** Com a config pública embutida como reserva, a nuvem está sempre disponível. */
-export const isFirebaseConfigured = Boolean(config.apiKey && config.projectId);
+export const isFirebaseConfigured =
+  !demoForcado && Boolean(config.apiKey && config.projectId);
 
 let app: FirebaseApp | undefined;
 let auth: Auth | undefined;
