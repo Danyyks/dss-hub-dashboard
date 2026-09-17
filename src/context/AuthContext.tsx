@@ -98,20 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const provider = new GoogleAuthProvider();
 
-    // Só no celular usamos redirecionamento direto (popup é bloqueado lá).
-    // No desktop — inclusive com o PWA instalado — o popup funciona e é mais
-    // confiável (o redirecionamento costuma travar dentro de PWA de desktop).
-    const ehCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (ehCelular) {
-      try {
-        await signInWithRedirect(auth, provider);
-      } catch (e) {
-        tratarErroLogin(e);
-      }
-      return;
-    }
-
+    // Popup é o padrão em todas as plataformas (inclusive celular e PWA). O
+    // redirecionamento do Firebase trava quando o app e o authDomain são domínios
+    // diferentes (bloqueio de armazenamento entre sites), então fica só de reserva.
     try {
       const cred = await signInWithPopup(auth, provider);
       if (cred.user.email && !ehPermitido(cred.user.email)) {
