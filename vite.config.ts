@@ -28,6 +28,11 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
         navigateFallbackDenylist: [/^\/__/],
+        // Atualização mais agressiva: o novo service worker assume na hora e
+        // limpa caches antigos, reduzindo o problema de "versão presa" no PWA.
+        clientsClaim: true,
+        skipWaiting: true,
+        cleanupOutdatedCaches: true,
       },
       devOptions: { enabled: false },
     }),
