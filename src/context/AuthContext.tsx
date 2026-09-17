@@ -98,13 +98,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const provider = new GoogleAuthProvider();
 
-    // No celular ou com o app instalado (PWA), o popup costuma ser bloqueado.
-    // Nesses casos usamos o redirecionamento, que é mais confiável.
-    const prefereRedirect =
-      window.matchMedia("(display-mode: standalone)").matches ||
-      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // Só no celular usamos redirecionamento direto (popup é bloqueado lá).
+    // No desktop — inclusive com o PWA instalado — o popup funciona e é mais
+    // confiável (o redirecionamento costuma travar dentro de PWA de desktop).
+    const ehCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    if (prefereRedirect) {
+    if (ehCelular) {
       try {
         await signInWithRedirect(auth, provider);
       } catch (e) {
