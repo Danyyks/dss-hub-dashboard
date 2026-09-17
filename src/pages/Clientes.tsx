@@ -192,7 +192,7 @@ export function Clientes() {
 
                 <div className="flex items-center justify-between border-t border-border pt-3">
                   <div>
-                    <p className="text-lg font-semibold text-text">
+                    <p className="tabular text-lg font-bold text-text">
                       {formatBRL(c.valorMensalidade)}
                     </p>
                     <p className="text-[11px] text-muted">
@@ -253,12 +253,18 @@ export function Clientes() {
                   </p>
                 )}
 
-                <div className="flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="mt-auto flex gap-2 pt-1 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
                   <Button variante="secondary" tamanho="sm" className="flex-1" onClick={() => abrirEdicao(c)}>
                     <Pencil className="h-3.5 w-3.5" /> Editar
                   </Button>
-                  <Button variante="ghost" tamanho="sm" onClick={() => void excluir(c)}>
-                    <Trash2 className="h-3.5 w-3.5 text-danger" />
+                  <Button
+                    variante="ghost"
+                    tamanho="sm"
+                    onClick={() => void excluir(c)}
+                    aria-label={`Excluir ${c.nome}`}
+                    className="hover:bg-danger/10 hover:text-danger"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
                   </Button>
                 </div>
               </Card>

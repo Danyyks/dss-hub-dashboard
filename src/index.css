@@ -4,36 +4,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================================
-   Design tokens — inspiração Apple / Google / Nubank
+   Design tokens — inspiração Apple / Google / Nubank / Spotify
    ============================================================ */
 :root {
-  --bg: 250 250 252;          /* fundo geral */
+  --bg: 249 250 252;          /* fundo geral */
   --surface: 255 255 255;     /* cards */
-  --surface-2: 245 246 250;   /* superfícies sutis */
-  --border: 226 229 236;
-  --text: 17 20 28;
-  --muted: 108 114 128;
+  --surface-2: 244 246 250;   /* superfícies sutis */
+  --border: 228 231 238;      /* bordas */
+  --border-strong: 214 218 228;
+  --text: 16 20 28;
+  --muted: 100 107 122;       /* contraste AA sobre o fundo */
   --primary: 24 57 75;        /* azul da marca #18394B */
+  --primary-hover: 30 71 93;
   --primary-fg: 255 255 255;
-  --success: 22 163 74;
-  --warning: 202 138 4;
-  --danger: 220 38 38;
-  --ring: 24 57 75;
+  --accent: 45 120 156;       /* variação clara da marca p/ destaques */
+  --success: 21 128 61;
+  --warning: 180 120 4;
+  --danger: 209 36 36;
+  --ring: 45 120 156;
+
+  /* Elevação */
+  --shadow-sm: 0 1px 2px 0 rgb(16 24 40 / 0.04), 0 1px 3px 0 rgb(16 24 40 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(16 24 40 / 0.08), 0 2px 6px -2px rgb(16 24 40 / 0.05);
+  --shadow-lg: 0 24px 48px -12px rgb(16 24 40 / 0.18), 0 8px 20px -8px rgb(16 24 40 / 0.10);
 }
 
 .dark {
-  --bg: 11 15 26;
-  --surface: 20 25 40;
-  --surface-2: 27 33 51;
-  --border: 40 47 66;
-  --text: 237 240 248;
-  --muted: 148 156 176;
-  --primary: 122 178 212;     /* versão clara do azul da marca p/ contraste no escuro */
-  --primary-fg: 12 18 28;
+  --bg: 9 12 20;
+  --surface: 19 24 37;
+  --surface-2: 28 34 50;
+  --border: 38 45 63;
+  --border-strong: 52 60 80;
+  --text: 236 239 247;
+  --muted: 154 162 182;       /* contraste AA sobre o fundo escuro */
+  --primary: 122 178 212;     /* versão clara do azul da marca */
+  --primary-hover: 143 194 225;
+  --primary-fg: 9 16 24;
+  --accent: 122 178 212;
   --success: 74 222 128;
   --warning: 250 204 21;
   --danger: 248 113 113;
   --ring: 122 178 212;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.30);
+  --shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.45), 0 2px 6px -2px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 28px 56px -16px rgb(0 0 0 / 0.65), 0 10px 24px -8px rgb(0 0 0 / 0.45);
 }
 
 @theme inline {
@@ -41,18 +56,26 @@
   --color-surface: rgb(var(--surface));
   --color-surface-2: rgb(var(--surface-2));
   --color-border: rgb(var(--border));
+  --color-border-strong: rgb(var(--border-strong));
   --color-text: rgb(var(--text));
   --color-muted: rgb(var(--muted));
   --color-primary: rgb(var(--primary));
+  --color-primary-hover: rgb(var(--primary-hover));
   --color-primary-fg: rgb(var(--primary-fg));
+  --color-accent: rgb(var(--accent));
   --color-success: rgb(var(--success));
   --color-warning: rgb(var(--warning));
   --color-danger: rgb(var(--danger));
   --color-ring: rgb(var(--ring));
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-pop: var(--shadow-md);
+  --shadow-modal: var(--shadow-lg);
 }
 
 * {
@@ -70,18 +93,34 @@ body {
   background: rgb(var(--bg));
   color: rgb(var(--text));
   font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Títulos com leve aperto ótico */
+h1, h2, h3 {
+  letter-spacing: -0.014em;
+}
+
+/* Números financeiros alinhados */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 /* Scrollbar discreta */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--border));
+  background: rgb(var(--border-strong));
   border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--muted));
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -91,12 +130,38 @@ body {
 :focus-visible {
   outline: 2px solid rgb(var(--ring));
   outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
+/* ---------------- Animações ---------------- */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes fade-in-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sheet-up {
+  from { opacity: 0; transform: translateY(24px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 .animate-in {
-  animation: fade-in 0.25s ease-out both;
+  animation: fade-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-backdrop {
+  animation: fade-in-backdrop 0.2s ease-out both;
+}
+.animate-sheet {
+  animation: sheet-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

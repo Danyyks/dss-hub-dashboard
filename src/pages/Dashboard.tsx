@@ -97,8 +97,8 @@ export function Dashboard() {
                   {iniciais(cliente.nome)}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-text">{cliente.nome}</p>
-                  <p className="text-xs text-muted">
+                  <p className="truncate text-sm font-semibold text-text">{cliente.nome}</p>
+                  <p className="tabular text-xs text-muted">
                     {formatBRL(cliente.valorMensalidade)} · vence dia {cliente.diaVencimento}
                   </p>
                 </div>
@@ -134,14 +134,14 @@ function MetricaLink({
   cor: string;
 }) {
   return (
-    <Link to={para}>
-      <Card className="flex flex-col gap-3 transition-all hover:-translate-y-0.5 hover:shadow-md">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-2 text-muted">
+    <Link to={para} className="rounded-2xl">
+      <Card className="flex h-full flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-pop">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-2 text-muted ring-1 ring-inset ring-border">
           {icone}
         </div>
         <div>
-          <p className="text-xs text-muted">{rotulo}</p>
-          <p className={"mt-0.5 text-2xl font-bold " + cor}>{valor}</p>
+          <p className="text-xs font-medium text-muted">{rotulo}</p>
+          <p className={"tabular mt-0.5 text-2xl font-extrabold tracking-tight " + cor}>{valor}</p>
         </div>
       </Card>
     </Link>

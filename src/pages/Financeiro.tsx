@@ -162,7 +162,7 @@ export function Financeiro() {
       </div>
 
       <Card className="mb-5">
-        <p className="mb-4 text-sm font-medium text-text">Entradas dos últimos 6 meses</p>
+        <p className="mb-4 text-sm font-semibold text-text">Entradas dos últimos 6 meses</p>
         <div className="h-48">
           {dadosGrafico.every((d) => d.valor === 0) ? (
             <div className="flex h-full flex-col items-center justify-center gap-1 text-center">
@@ -194,7 +194,8 @@ export function Financeiro() {
                 {dadosGrafico.map((_, i) => (
                   <Cell
                     key={i}
-                    fill={i === dadosGrafico.length - 1 ? "rgb(var(--primary))" : "rgb(var(--border))"}
+                    fill="rgb(var(--primary))"
+                    fillOpacity={i === dadosGrafico.length - 1 ? 1 : 0.28}
                   />
                 ))}
               </Bar>
@@ -239,11 +240,11 @@ export function Financeiro() {
                     : ""}
                 </span>
               </div>
-              <span className="shrink-0 font-semibold text-success">{formatBRL(l.valor)}</span>
+              <span className="tabular shrink-0 font-bold text-success">{formatBRL(l.valor)}</span>
               <button
                 onClick={() => void excluir(l)}
-                aria-label="Excluir"
-                className="shrink-0 text-muted opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
+                aria-label="Excluir lançamento"
+                className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted transition-all hover:bg-danger/10 hover:text-danger md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -337,8 +338,8 @@ function Metrica({
         {icone}
       </div>
       <div>
-        <p className="text-xs text-muted">{rotulo}</p>
-        <p className={"mt-0.5 text-2xl font-bold " + cor}>{valor}</p>
+        <p className="text-xs font-medium text-muted">{rotulo}</p>
+        <p className={"tabular mt-0.5 text-2xl font-extrabold tracking-tight " + cor}>{valor}</p>
       </div>
     </Card>
   );

@@ -50,22 +50,29 @@ export function Layout() {
               end={item.exato}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors",
                   isActive
-                    ? "bg-primary/10 text-primary"
+                    ? "bg-primary/12 text-primary"
                     : "text-muted hover:bg-surface-2 hover:text-text",
                 )
               }
             >
-              <item.icone className="h-5 w-5" />
-              {item.rotulo}
+              {({ isActive }) => (
+                <>
+                  <item.icone
+                    className={cn("h-5 w-5", !isActive && "opacity-90")}
+                    strokeWidth={isActive ? 2.4 : 2}
+                  />
+                  {item.rotulo}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
 
         <div className="mt-auto flex flex-col gap-2">
           {modoDemo && (
-            <div className="rounded-xl bg-warning/10 px-3 py-2 text-[11px] leading-snug text-warning">
+            <div className="rounded-xl bg-warning/10 px-3 py-2.5 text-[11px] leading-snug text-warning ring-1 ring-inset ring-warning/20">
               Modo demo — dados salvos só neste navegador. Configure o Firebase para
               sincronizar.
             </div>
@@ -85,7 +92,7 @@ export function Layout() {
       {/* Conteúdo */}
       <div className="flex flex-1 flex-col md:pl-64">
         {/* Header mobile */}
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/80 px-4 py-3 backdrop-blur md:hidden">
+        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/75 px-4 py-3 backdrop-blur-xl md:hidden">
           <Logo />
           <div className="flex items-center gap-1">
             <Button variante="ghost" tamanho="icon" onClick={alternar} aria-label="Alternar tema">
@@ -97,29 +104,39 @@ export function Layout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-24 md:px-8 md:py-8 md:pb-8">
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-28 md:px-8 md:py-8 md:pb-8">
           <Outlet />
         </main>
       </div>
 
       {/* Barra inferior mobile */}
-      <nav className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-around border-t border-border bg-surface/90 px-2 py-2 backdrop-blur md:hidden">
-        {navItens.map((item) => (
-          <NavLink
-            key={item.para}
-            to={item.para}
-            end={item.exato}
-            className={({ isActive }) =>
-              cn(
-                "flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 text-[10px] font-medium transition-colors",
-                isActive ? "text-primary" : "text-muted",
-              )
-            }
-          >
-            <item.icone className="h-5 w-5" />
-            {item.rotulo}
-          </NavLink>
-        ))}
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden">
+        <div className="flex items-stretch justify-around px-2 py-1.5">
+          {navItens.map((item) => (
+            <NavLink
+              key={item.para}
+              to={item.para}
+              end={item.exato}
+              className="flex flex-1 flex-col items-center gap-1 py-1.5 text-[11px] font-semibold"
+            >
+              {({ isActive }) => (
+                <>
+                  <span
+                    className={cn(
+                      "flex h-8 w-14 items-center justify-center rounded-full transition-colors",
+                      isActive ? "bg-primary/12 text-primary" : "text-muted",
+                    )}
+                  >
+                    <item.icone className="h-5 w-5" />
+                  </span>
+                  <span className={isActive ? "text-primary" : "text-muted"}>
+                    {item.rotulo}
+                  </span>
+                </>
+              )}
+            </NavLink>
+          ))}
+        </div>
       </nav>
     </div>
   );
