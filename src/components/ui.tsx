@@ -170,19 +170,21 @@ export function Modal({
 
   if (!aberto) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4">
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in"
         onClick={aoFechar}
       />
-      <div className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-border bg-surface p-6 shadow-xl animate-in sm:rounded-2xl">
-        <div className="mb-5 flex items-center justify-between">
+      <div className="relative z-10 flex max-h-[92dvh] w-full max-w-lg flex-col rounded-t-2xl border border-border bg-surface shadow-xl animate-in sm:max-h-[85vh] sm:rounded-2xl">
+        <div className="flex shrink-0 items-center justify-between border-b border-border px-6 py-4">
           <h2 className="text-lg font-semibold text-text">{titulo}</h2>
           <Button variante="ghost" tamanho="icon" onClick={aoFechar} aria-label="Fechar">
             <X className="h-5 w-5" />
           </Button>
         </div>
-        {children}
+        <div className="min-h-0 overflow-y-auto overscroll-contain px-6 py-5">
+          {children}
+        </div>
       </div>
     </div>
   );
