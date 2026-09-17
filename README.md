@@ -6,8 +6,8 @@ usar como um aplicativo, com login por conta Google e os dados sincronizados ent
 sócias em tempo real.
 
 A ideia é simples: sair das planilhas soltas e do "está anotado em algum lugar" e ter
-uma central onde a gente enxerga de relance quanto entrou no mês, quem está para vencer,
-quais projetos estão em andamento e onde ficam os acessos de cada cliente.
+uma central onde a gente enxerga de relance quanto entrou no mês, quem está para vencer
+e onde ficam os links e os acessos de cada cliente.
 
 ## O que dá para fazer
 
@@ -34,28 +34,29 @@ Você vai precisar do Node instalado. Com o projeto aberto no terminal:
 
 Depois é só abrir http://localhost:5173.
 
-## Modo demonstração
+O projeto já vem ligado à nuvem da DSS Hub (a configuração pública do Firebase fica
+embutida como reserva), então rodar `npm run dev` já usa o login Google real e o banco
+em nuvem.
 
-Enquanto as chaves do Firebase não estiverem configuradas, o app roda em modo
-demonstração: o login é fictício e os dados ficam salvos só no navegador. Serve para
-testar a interface sem depender de nada. Assim que as chaves entram no arquivo de
-ambiente, o app passa sozinho para a nuvem de verdade.
+## Modo demonstração (para desenvolvimento)
 
-## Conectando à nuvem
+Para mexer na interface sem precisar logar com o Google, rode em modo demonstração: o
+login é fictício e os dados ficam salvos só no navegador.
 
-A nuvem usa o Firebase para o login e o banco de dados. Para ligar:
+    VITE_DEMO=1 npm run dev
 
-1. Crie um projeto no console do Firebase.
-2. Em Authentication, ative a entrada com Google.
-3. Em Firestore Database, crie o banco em modo produção.
-4. Nas configurações do projeto, registre um app Web e copie as chaves.
-5. Copie o arquivo `.env.example` para `.env` e preencha os valores.
-6. Em `VITE_ALLOWED_EMAILS`, coloque os e-mails autorizados a entrar, separados por
+## Apontando para outro Firebase
+
+Para usar um projeto Firebase diferente, crie um arquivo `.env` (copie de `.env.example`)
+e preencha as variáveis — elas têm prioridade sobre a configuração embutida. Do lado do
+Firebase:
+
+1. Em Authentication, ative a entrada com Google.
+2. Em Firestore Database, crie o banco em modo produção.
+3. Em `VITE_ALLOWED_EMAILS`, coloque os e-mails autorizados a entrar, separados por
    vírgula. Só esses conseguem logar.
-7. Publique as regras do arquivo `firestore.rules` no Firestore, ajustando a mesma lista
+4. Publique as regras do arquivo `firestore.rules` no Firestore, ajustando a mesma lista
    de e-mails. É isso que garante que só a equipe acessa os dados.
-
-Reinicie o `npm run dev` e o app já estará usando a nuvem.
 
 ## Publicando na Vercel
 
