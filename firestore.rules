@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// Regras de segurança do Firestore para o DSS Hub Dashboard.
+// Só os e-mails autorizados da equipe podem ler/escrever qualquer dado.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // >>> EDITE ESTA LISTA com os e-mails das 3 sócias <<<
+    function emailAutorizado() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          'danyy.jonathan@gmail.com'
+          // , 'socia2@gmail.com'
+          // , 'socia3@gmail.com'
+        ];
+    }
+
+    match /{document=**} {
+      allow read, write: if emailAutorizado();
+    }
+  }
+}
