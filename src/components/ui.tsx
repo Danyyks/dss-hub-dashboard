@@ -185,29 +185,31 @@ export function Modal({
   if (!aberto) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label={titulo}
     >
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-backdrop"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm animate-backdrop"
         onClick={aoFechar}
       />
-      <div className="relative z-10 flex max-h-[92dvh] w-full max-w-lg flex-col rounded-t-3xl border border-border bg-surface shadow-modal animate-sheet sm:max-h-[85vh] sm:rounded-3xl">
-        {/* Alça (mobile) */}
-        <div className="flex justify-center pt-2.5 sm:hidden">
-          <span className="h-1.5 w-10 rounded-full bg-border-strong" />
-        </div>
-        <div className="flex shrink-0 items-center justify-between gap-4 px-6 py-4">
-          <h2 className="text-lg font-bold tracking-tight text-text">{titulo}</h2>
-          <Button variante="ghost" tamanho="icon" onClick={aoFechar} aria-label="Fechar">
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-        <div className="h-px shrink-0 bg-border" />
-        <div className="min-h-0 overflow-y-auto overscroll-contain px-6 py-5">
-          {children}
+      <div className="relative flex min-h-full items-end justify-center sm:items-center sm:p-4">
+        <div className="relative z-10 flex max-h-[92dvh] w-full max-w-lg flex-col rounded-t-3xl border border-border bg-surface shadow-modal animate-sheet sm:max-h-[85vh] sm:rounded-3xl">
+          {/* Alça (mobile) */}
+          <div className="flex justify-center pt-2.5 sm:hidden">
+            <span className="h-1.5 w-10 rounded-full bg-border-strong" />
+          </div>
+          <div className="flex shrink-0 items-center justify-between gap-4 px-6 py-4">
+            <h2 className="text-lg font-bold tracking-tight text-text">{titulo}</h2>
+            <Button variante="ghost" tamanho="icon" onClick={aoFechar} aria-label="Fechar">
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+          <div className="h-px shrink-0 bg-border" />
+          <div className="min-h-0 overflow-y-auto overscroll-contain px-6 py-5">
+            {children}
+          </div>
         </div>
       </div>
     </div>
