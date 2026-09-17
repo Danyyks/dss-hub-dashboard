@@ -11,6 +11,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useTheme } from "@/context/ThemeContext";
 import { cn, iniciais } from "@/lib/utils";
 import { Button } from "./ui";
+import { InstallButton } from "./InstallButton";
 
 const navItens = [
   { para: "/", rotulo: "Início", icone: LayoutDashboard, exato: true },
@@ -69,6 +70,7 @@ export function Layout() {
               sincronizar.
             </div>
           )}
+          <InstallButton className="w-full justify-start gap-3 px-3" />
           <button
             onClick={alternar}
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-2 hover:text-text"

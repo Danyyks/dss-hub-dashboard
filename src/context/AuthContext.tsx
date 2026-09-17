@@ -8,6 +8,8 @@ import {
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   onAuthStateChanged,
   type User,
@@ -47,6 +49,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     // ---------- MODO NUVEM ----------
+    // Conclui um login iniciado por redirecionamento (celular/PWA) e mostra erros.
+    getRedirectResult(auth).catch((e) => {
+      const code = (e as { code?: string }).code ?? "";
+      if (code === "auth/unauthorized-domain") {
+        setErro(
+          "Este endereço ainda não está autorizado no Firebase (Authentication → Authorized domains).",
+        );
+      }
+    });
     return onAuthStateChanged(auth, (u: User | null) => {
       if (u && u.email && ehPermitido(u.email)) {
         setUsuario({
@@ -85,16 +96,59 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUsuario(demo);
       return;
     }
+    const provider = new GoogleAuthProvider();
+
+    // No celular ou com o app instalado (PWA), o popup costuma ser bloqueado.
+    // Nesses casos usamos o redirecionamento, que é mais confiável.
+    const prefereRedirect =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (prefereRedirect) {
+      try {
+        await signInWithRedirect(auth, provider);
+      } catch (e) {
+        tratarErroLogin(e);
+      }
+      return;
+    }
+
     try {
-      const provider = new GoogleAuthProvider();
       const cred = await signInWithPopup(auth, provider);
       if (cred.user.email && !ehPermitido(cred.user.email)) {
         await signOut(auth);
         setErro("Acesso não autorizado para este e-mail.");
       }
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Erro ao entrar.";
-      if (!msg.includes("popup-closed")) setErro("Não foi possível entrar. Tente novamente.");
+      const code = (e as { code?: string }).code ?? "";
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        return; // usuário fechou o popup, sem erro
+      }
+      // popup bloqueado ou não suportado → tenta redirecionamento
+      if (
+        code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment"
+      ) {
+        try {
+          await signInWithRedirect(auth, provider);
+          return;
+        } catch (er) {
+          tratarErroLogin(er);
+          return;
+        }
+      }
+      tratarErroLogin(e);
+    }
+  }
+
+  function tratarErroLogin(e: unknown) {
+    const code = (e as { code?: string }).code ?? "";
+    if (code === "auth/unauthorized-domain") {
+      setErro(
+        "Este endereço ainda não está autorizado no Firebase (Authentication → Authorized domains).",
+      );
+    } else {
+      setErro("Não foi possível entrar. Tente novamente.");
     }
   }
 

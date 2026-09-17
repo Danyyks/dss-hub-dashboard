@@ -1,5 +1,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui";
+import { InstallButton } from "@/components/InstallButton";
 import { ShieldCheck } from "lucide-react";
 
 function GoogleIcon() {
@@ -61,6 +62,10 @@ export function Login() {
                 : "Acesso restrito aos e-mails autorizados da equipe."}
             </span>
           </div>
+        </div>
+
+        <div className="mt-4 flex flex-col items-center gap-3">
+          <InstallButton className="w-full" />
         </div>
 
         <p className="mt-6 text-center text-xs text-muted">
