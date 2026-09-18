@@ -6,6 +6,7 @@ import {
   type ReactNode,
   useEffect,
 } from "react";
+import { createPortal } from "react-dom";
 import { X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -183,7 +184,7 @@ export function Modal({
   }, [aberto, aoFechar]);
 
   if (!aberto) return null;
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-50 overflow-y-auto"
       role="dialog"
@@ -212,7 +213,8 @@ export function Modal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
