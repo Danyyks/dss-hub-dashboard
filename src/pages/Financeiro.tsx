@@ -244,7 +244,7 @@ export function Financeiro() {
               <button
                 onClick={() => void excluir(l)}
                 aria-label="Excluir lançamento"
-                className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted transition-all hover:bg-danger/10 hover:text-danger md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-muted transition-all hover:bg-danger/10 hover:text-danger md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
               >
                 <Trash2 className="h-4 w-4" />
               </button>

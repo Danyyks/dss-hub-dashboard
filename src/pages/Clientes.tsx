@@ -129,7 +129,7 @@ export function Clientes() {
     <div className="animate-in">
       <PageHeader
         titulo="Clientes"
-        descricao={`${clientes.length} ${clientes.length === 1 ? "cliente" : "clientes"} cadastrados`}
+        descricao={`${clientes.length} ${clientes.length === 1 ? "cliente cadastrado" : "clientes cadastrados"}`}
         acao={
           <Button onClick={abrirNovo}>
             <Plus className="h-4 w-4" /> Novo cliente
@@ -140,6 +140,8 @@ export function Clientes() {
       <div className="relative mb-5">
         <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
         <Input
+          type="search"
+          aria-label="Buscar clientes"
           placeholder="Buscar por nome, e-mail ou telefone…"
           className="pl-10"
           value={busca}
@@ -383,8 +385,8 @@ export function Clientes() {
                   <span className="text-xs font-medium text-muted">Link {i + 1}</span>
                   <button
                     onClick={() => removeLink(l.id)}
-                    aria-label="Remover link"
-                    className="text-muted hover:text-danger"
+                    aria-label={`Remover link ${i + 1}`}
+                    className="-mr-1.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted transition-colors hover:bg-danger/10 hover:text-danger"
                   >
                     <X className="h-4 w-4" />
                   </button>
