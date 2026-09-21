@@ -67,3 +67,32 @@ export function situacaoVencimento(diaVencimento: number): SituacaoVencimento {
   if (d <= 5) return "proximo";
   return "em-dia";
 }
+
+type LancamentoMin = { clienteId: string | null; data: number };
+
+/** Verifica se o cliente tem algum lançamento (pagamento) no mês de referência. */
+export function pagouNoMes(
+  clienteId: string,
+  lancamentos: LancamentoMin[],
+  hoje = new Date(),
+): boolean {
+  const inicio = new Date(hoje.getFullYear(), hoje.getMonth(), 1).getTime();
+  const fim = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 1).getTime();
+  return lancamentos.some(
+    (l) => l.clienteId === clienteId && l.data >= inicio && l.data < fim,
+  );
+}
+
+export type SituacaoPagamento = "pago" | SituacaoVencimento;
+
+/**
+ * Situação de cobrança do cliente: "pago" quando já há lançamento dele no mês
+ * atual; caso contrário, classifica pelo dia de vencimento.
+ */
+export function situacaoPagamento(
+  cliente: { id: string; diaVencimento: number },
+  lancamentos: LancamentoMin[],
+): SituacaoPagamento {
+  if (pagouNoMes(cliente.id, lancamentos)) return "pago";
+  return situacaoVencimento(cliente.diaVencimento);
+}

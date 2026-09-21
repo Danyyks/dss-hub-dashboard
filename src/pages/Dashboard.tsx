@@ -11,7 +11,13 @@ import { PageHeader } from "@/components/PageHeader";
 import { Card, Badge, EmptyState } from "@/components/ui";
 import { useClientes, useLancamentos } from "@/hooks/useColecoes";
 import { useAuth } from "@/context/AuthContext";
-import { formatBRL, situacaoVencimento, diasParaVencimento, iniciais } from "@/lib/utils";
+import {
+  formatBRL,
+  situacaoVencimento,
+  diasParaVencimento,
+  pagouNoMes,
+  iniciais,
+} from "@/lib/utils";
 
 export function Dashboard() {
   const { usuario } = useAuth();
@@ -31,11 +37,12 @@ export function Dashboard() {
 
   const vencimentos = useMemo(() => {
     return ativos
+      .filter((c) => !pagouNoMes(c.id, lancamentos))
       .map((c) => ({ cliente: c, dias: diasParaVencimento(c.diaVencimento), sit: situacaoVencimento(c.diaVencimento) }))
       .filter((v) => v.sit !== "em-dia")
       .sort((a, b) => a.dias - b.dias)
       .slice(0, 6);
-  }, [ativos]);
+  }, [ativos, lancamentos]);
 
   const primeiroNome = usuario?.nome?.split(" ")[0] ?? "";
   const hora = agora.getHours();

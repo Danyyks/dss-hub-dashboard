@@ -24,7 +24,7 @@ import {
   Badge,
   EmptyState,
 } from "@/components/ui";
-import { clientesRepo, useClientes } from "@/hooks/useColecoes";
+import { clientesRepo, useClientes, useLancamentos } from "@/hooks/useColecoes";
 import {
   type Cliente,
   type FormaPagamento,
@@ -33,7 +33,7 @@ import {
   FORMA_PAGAMENTO_LABEL,
   STATUS_CLIENTE_LABEL,
 } from "@/types";
-import { formatBRL, iniciais, situacaoVencimento, uid } from "@/lib/utils";
+import { formatBRL, iniciais, situacaoPagamento, uid } from "@/lib/utils";
 
 type Form = Omit<Cliente, "id" | "criadoEm">;
 
@@ -61,6 +61,7 @@ function linkVazio(): LinkProjeto {
 
 export function Clientes() {
   const { clientes, carregando } = useClientes();
+  const { lancamentos } = useLancamentos();
   const [busca, setBusca] = useState("");
   const [modalAberto, setModalAberto] = useState(false);
   const [editando, setEditando] = useState<Cliente | null>(null);
@@ -164,7 +165,23 @@ export function Clientes() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtrados.map((c) => {
-            const sit = situacaoVencimento(c.diaVencimento);
+            const sit = situacaoPagamento(c, lancamentos);
+            const badgeCor =
+              sit === "pago" || sit === "em-dia"
+                ? "verde"
+                : sit === "atrasado"
+                  ? "vermelho"
+                  : "amarelo";
+            const badgeLabel =
+              sit === "pago"
+                ? "Pago"
+                : sit === "atrasado"
+                  ? "Atrasado"
+                  : sit === "hoje"
+                    ? "Vence hoje"
+                    : sit === "proximo"
+                      ? "A vencer"
+                      : "Em dia";
             const links = c.links ?? [];
             return (
               <Card key={c.id} className="group flex flex-col gap-4">
@@ -201,25 +218,7 @@ export function Clientes() {
                       vence dia {c.diaVencimento} · {FORMA_PAGAMENTO_LABEL[c.formaPagamento]}
                     </p>
                   </div>
-                  {c.status === "ativo" && (
-                    <Badge
-                      cor={
-                        sit === "atrasado"
-                          ? "vermelho"
-                          : sit === "hoje" || sit === "proximo"
-                            ? "amarelo"
-                            : "verde"
-                      }
-                    >
-                      {sit === "atrasado"
-                        ? "Atrasado"
-                        : sit === "hoje"
-                          ? "Vence hoje"
-                          : sit === "proximo"
-                            ? "A vencer"
-                            : "Em dia"}
-                    </Badge>
-                  )}
+                  {c.status === "ativo" && <Badge cor={badgeCor}>{badgeLabel}</Badge>}
                 </div>
 
                 {links.length > 0 && (

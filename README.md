@@ -20,7 +20,10 @@ projeto, quantos precisar, e cada link vem com uma descrição e um espaço para
 o que for útil (onde acessa, qual o plano, o que combinaram).
 
 Em financeiro ficam os lançamentos de entrada, o cálculo da receita recorrente e um
-gráfico com o que entrou nos últimos meses.
+gráfico com o que entrou nos últimos meses. Ao registrar uma entrada e escolher o
+cliente, o status dele em Clientes vira automaticamente **Pago** naquele mês (e ele sai
+da lista de próximos vencimentos); sem pagamento no mês, o status segue pelo dia de
+vencimento (a vencer / vence hoje / atrasado).
 
 Tudo funciona no tema claro e no escuro, e a interface foi pensada para ser rápida no
 computador e confortável no celular.
