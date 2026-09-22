@@ -27,7 +27,7 @@ const tamanhos: Record<Tamanho, string> = {
   sm: "h-9 px-3 text-sm gap-1.5",
   md: "h-11 px-4 text-sm gap-2",
   lg: "h-12 px-6 text-base gap-2",
-  icon: "h-10 w-10",
+  icon: "h-11 w-11",
 };
 
 export function Button({
@@ -95,8 +95,9 @@ export function Field({
   );
 }
 
+// text-base (16px) no mobile evita o zoom automático do Safari/iOS ao focar; text-sm no desktop.
 const campoBase =
-  "w-full rounded-xl border border-border bg-surface-2 px-3.5 text-sm text-text placeholder:text-muted transition-all " +
+  "w-full rounded-xl border border-border bg-surface-2 px-3.5 text-base text-text placeholder:text-muted transition-all sm:text-sm " +
   "focus-visible:outline-none focus:border-primary focus:bg-surface focus:ring-4 focus:ring-primary/15";
 
 export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
@@ -208,7 +209,7 @@ export function Modal({
             </Button>
           </div>
           <div className="h-px shrink-0 bg-border" />
-          <div className="min-h-0 overflow-y-auto overscroll-contain px-6 py-5">
+          <div className="min-h-0 overflow-y-auto overscroll-contain px-6 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:pb-5">
             {children}
           </div>
         </div>

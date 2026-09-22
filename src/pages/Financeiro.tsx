@@ -140,7 +140,7 @@ export function Financeiro() {
         }
       />
 
-      <div className="mb-5 grid gap-3 sm:grid-cols-3">
+      <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Metrica
           icone={<Wallet className="h-5 w-5" />}
           rotulo="Caixa do mês"
@@ -163,7 +163,7 @@ export function Financeiro() {
 
       <Card className="mb-5">
         <p className="mb-4 text-sm font-semibold text-text">Entradas dos últimos 6 meses</p>
-        <div className="h-48">
+        <div className="h-48 min-w-0">
           {dadosGrafico.every((d) => d.valor === 0) ? (
             <div className="flex h-full flex-col items-center justify-center gap-1 text-center">
               <p className="text-sm text-muted">Sem entradas ainda</p>
@@ -225,15 +225,17 @@ export function Financeiro() {
                 <ArrowUpRight className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="truncate text-sm font-medium text-text">
+                <div className="flex min-w-0 items-center gap-2">
+                  <span className="min-w-0 truncate text-sm font-medium text-text">
                     {l.descricao || (l.clienteId ? mapaCliente.get(l.clienteId) : "Entrada avulsa")}
                   </span>
-                  <Badge cor={l.tipo === "recorrente" ? "azul" : "cinza"}>
-                    {l.tipo === "recorrente" ? "Recorrente" : "Avulso"}
-                  </Badge>
+                  <span className="shrink-0">
+                    <Badge cor={l.tipo === "recorrente" ? "azul" : "cinza"}>
+                      {l.tipo === "recorrente" ? "Recorrente" : "Avulso"}
+                    </Badge>
+                  </span>
                 </div>
-                <span className="text-xs text-muted">
+                <span className="block truncate text-xs text-muted">
                   {formatData(l.data)}
                   {l.clienteId && mapaCliente.get(l.clienteId)
                     ? ` · ${mapaCliente.get(l.clienteId)}`

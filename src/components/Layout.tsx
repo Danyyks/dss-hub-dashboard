@@ -90,9 +90,9 @@ export function Layout() {
       </aside>
 
       {/* Conteúdo */}
-      <div className="flex flex-1 flex-col md:pl-64">
+      <div className="flex min-w-0 flex-1 flex-col md:pl-64">
         {/* Header mobile */}
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/75 px-4 py-3 backdrop-blur-xl md:hidden">
+        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/75 pb-3 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[calc(0.75rem+env(safe-area-inset-top))] backdrop-blur-xl md:hidden">
           <Logo />
           <div className="flex items-center gap-1">
             <Button variante="ghost" tamanho="icon" onClick={alternar} aria-label="Alternar tema">
@@ -104,13 +104,13 @@ export function Layout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-28 md:px-8 md:py-8 md:pb-8">
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-[calc(7rem+env(safe-area-inset-bottom))] md:px-8 md:py-8 md:pb-8">
           <Outlet />
         </main>
       </div>
 
       {/* Barra inferior mobile */}
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/85 pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] backdrop-blur-xl md:hidden">
         <div className="flex items-stretch justify-around px-2 py-1.5">
           {navItens.map((item) => (
             <NavLink

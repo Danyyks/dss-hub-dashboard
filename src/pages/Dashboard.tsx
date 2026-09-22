@@ -55,7 +55,7 @@ export function Dashboard() {
         descricao="Aqui está o resumo da DSS Hub hoje"
       />
 
-      <div className="mb-6 grid gap-3 sm:grid-cols-3">
+      <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <MetricaLink
           para="/financeiro"
           icone={<Wallet className="h-5 w-5" />}

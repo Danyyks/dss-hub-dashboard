@@ -163,7 +163,7 @@ export function Clientes() {
           }
         />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtrados.map((c) => {
             const sit = situacaoPagamento(c, lancamentos);
             const badgeCor =
@@ -190,19 +190,23 @@ export function Clientes() {
                     {iniciais(c.nome)}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="truncate font-semibold text-text">{c.nome}</h3>
-                      <Badge cor={corStatus[c.status]}>{STATUS_CLIENTE_LABEL[c.status]}</Badge>
+                    <div className="flex min-w-0 items-center gap-2">
+                      <h3 className="min-w-0 truncate font-semibold text-text">{c.nome}</h3>
+                      <span className="shrink-0">
+                        <Badge cor={corStatus[c.status]}>{STATUS_CLIENTE_LABEL[c.status]}</Badge>
+                      </span>
                     </div>
                     <div className="mt-1 flex flex-col gap-0.5 text-xs text-muted">
                       {c.telefone && (
-                        <span className="flex items-center gap-1.5">
-                          <Phone className="h-3 w-3" /> {c.telefone}
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          <Phone className="h-3 w-3 shrink-0" />
+                          <span className="truncate">{c.telefone}</span>
                         </span>
                       )}
                       {c.email && (
-                        <span className="flex items-center gap-1.5 truncate">
-                          <Mail className="h-3 w-3" /> {c.email}
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          <Mail className="h-3 w-3 shrink-0" />
+                          <span className="truncate">{c.email}</span>
                         </span>
                       )}
                     </div>
@@ -232,7 +236,7 @@ export function Clientes() {
                           href={l.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                          className="flex min-w-0 items-center gap-1.5 text-xs font-medium text-primary hover:underline"
                         >
                           <ExternalLink className="h-3 w-3 shrink-0" />
                           <span className="truncate">{l.descricao || l.url}</span>
@@ -240,7 +244,7 @@ export function Clientes() {
                         {l.comentario && (
                           <p className="mt-1 flex items-start gap-1.5 text-[11px] text-muted">
                             <MessageSquare className="mt-0.5 h-3 w-3 shrink-0" />
-                            <span>{l.comentario}</span>
+                            <span className="min-w-0 break-words">{l.comentario}</span>
                           </p>
                         )}
                       </div>
@@ -249,7 +253,7 @@ export function Clientes() {
                 )}
 
                 {c.observacoes && (
-                  <p className="line-clamp-2 rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted">
+                  <p className="line-clamp-2 break-words rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted">
                     {c.observacoes}
                   </p>
                 )}
