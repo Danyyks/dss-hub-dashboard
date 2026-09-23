@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "prompt",
       includeAssets: ["symbol.svg"],
       manifest: {
         name: "DSS Hub — Dashboard",
@@ -28,10 +28,8 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
         navigateFallbackDenylist: [/^\/__/],
-        // Atualização mais agressiva: o novo service worker assume na hora e
-        // limpa caches antigos, reduzindo o problema de "versão presa" no PWA.
-        clientsClaim: true,
-        skipWaiting: true,
+        // Modo "prompt": o novo SW espera o usuário tocar em "Atualizar"
+        // (não faz skipWaiting sozinho). Só limpamos caches antigos.
         cleanupOutdatedCaches: true,
       },
       devOptions: { enabled: false },

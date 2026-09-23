@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Layout } from "@/components/Layout";
+import { UpdatePrompt } from "@/components/UpdatePrompt";
 import { Login } from "@/pages/Login";
 import { Dashboard } from "@/pages/Dashboard";
 import { Clientes } from "@/pages/Clientes";
@@ -17,18 +18,24 @@ function Splash() {
 export function App() {
   const { usuario, carregando } = useAuth();
 
-  if (carregando) return <Splash />;
-  if (!usuario) return <Login />;
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="clientes" element={<Clientes />} />
-          <Route path="financeiro" element={<Financeiro />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <UpdatePrompt />
+      {carregando ? (
+        <Splash />
+      ) : !usuario ? (
+        <Login />
+      ) : (
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="clientes" element={<Clientes />} />
+              <Route path="financeiro" element={<Financeiro />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      )}
+    </>
   );
 }
