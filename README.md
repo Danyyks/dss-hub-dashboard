@@ -3,7 +3,8 @@
 Painel interno da DSS Hub Tech para acompanhar clientes, projetos e o financeiro da
 empresa em um lugar só. É um PWA, então dá para instalar no computador e no celular e
 usar como um aplicativo, com login por conta Google e os dados sincronizados entre as
-sócias em tempo real.
+sócias em tempo real. Quando sai uma versão nova, o próprio app avisa com um botão
+"Atualizar" — sem precisar limpar cache nem reinstalar.
 
 A ideia é simples: sair das planilhas soltas e do "está anotado em algum lugar" e ter
 uma central onde a gente enxerga de relance quanto entrou no mês, quem está para vencer
