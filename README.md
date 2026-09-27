@@ -1,78 +1,196 @@
+<div align="center">
+
+<img src="public/symbol.svg" width="110" alt="Símbolo da DSS Hub Tech" />
+
 # DSS Hub
 
-Painel interno da DSS Hub Tech para acompanhar clientes, projetos e o financeiro da
-empresa em um lugar só. É um PWA, então dá para instalar no computador e no celular e
-usar como um aplicativo, com login por conta Google e os dados sincronizados entre as
-sócias em tempo real. Quando sai uma versão nova, o próprio app avisa com um botão
-"Atualizar" — sem precisar limpar cache nem reinstalar.
+**Clientes, mensalidades e caixa da empresa num lugar só.**
 
-A ideia é simples: sair das planilhas soltas e do "está anotado em algum lugar" e ter
-uma central onde a gente enxerga de relance quanto entrou no mês, quem está para vencer
-e onde ficam os links e os acessos de cada cliente.
+Painel interno da DSS Hub Tech, feito como PWA: instala no computador e no celular, entra só com Google e mantém os dados dos três sócios sincronizados em tempo real.
 
-## O que dá para fazer
+<br />
 
-O início mostra o resumo do dia: caixa do mês, receita recorrente, clientes ativos e os
-próximos vencimentos, com destaque para quem está atrasado.
+[![Em produção na Vercel](https://img.shields.io/badge/Vercel-Em_produção-18394B?style=for-the-badge&logo=vercel&logoColor=white)](https://dss-hub-dashboard.vercel.app)
 
-Em clientes fica o cadastro completo de cada um: contato, forma e dia de pagamento, valor
-da mensalidade, status e observações. Cada cliente também guarda os links do próprio
-projeto, quantos precisar, e cada link vem com uma descrição e um espaço para comentar
-o que for útil (onde acessa, qual o plano, o que combinaram).
+<sub>Acesso restrito à equipe: só entram as contas Google autorizadas.</sub>
 
-Em financeiro ficam os lançamentos de entrada, o cálculo da receita recorrente e um
-gráfico com o que entrou nos últimos meses. Ao registrar uma entrada e escolher o
-cliente, o status dele em Clientes vira automaticamente **Pago** naquele mês (e ele sai
-da lista de próximos vencimentos); sem pagamento no mês, o status segue pelo dia de
-vencimento (a vencer / vence hoje / atrasado).
+<br />
 
-Tudo funciona no tema claro e no escuro, e a interface foi pensada para ser rápida no
-computador e confortável no celular.
+![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+![PWA](https://img.shields.io/badge/PWA-instalável-18394B?style=flat-square&logo=pwa&logoColor=white)
+![Versão](https://img.shields.io/badge/versão-0.1-18394B?style=flat-square)
 
-## Como rodar na sua máquina
+</div>
 
-Você vai precisar do Node instalado. Com o projeto aberto no terminal:
+<br />
 
-    npm install
-    npm run dev
+## Sobre o projeto
 
-Depois é só abrir http://localhost:5173.
+A **DSS Hub Tech** é uma empresa de programação tocada por três sócios, e o painel nasceu de um problema comum: cliente anotado em planilha, link de projeto perdido em conversa de WhatsApp e ninguém sabendo ao certo quanto entrou no mês nem quem está para vencer.
 
-O projeto já vem ligado à nuvem da DSS Hub (a configuração pública do Firebase fica
-embutida como reserva), então rodar `npm run dev` já usa o login Google real e o banco
-em nuvem.
+A ideia é simples: uma central onde dá para ver de relance o caixa do mês, a receita recorrente e os próximos vencimentos, e onde cada cliente guarda tudo o que importa sobre ele, inclusive os links do próprio projeto, cada um com descrição e comentário.
 
-## Modo demonstração (para desenvolvimento)
+O diferencial está nos detalhes do dia a dia. Ao registrar uma entrada no financeiro e escolher o cliente, o status dele vira **Pago** sozinho naquele mês. Quando sai uma versão nova, o app avisa com um botão **Atualizar**, sem precisar limpar cache nem reinstalar. E tudo foi desenhado primeiro para o celular, porque é lá que o painel mais é aberto.
 
-Para mexer na interface sem precisar logar com o Google, rode em modo demonstração: o
-login é fictício e os dados ficam salvos só no navegador.
+<br />
 
-    VITE_DEMO=1 npm run dev
+## Telas
 
-## Apontando para outro Firebase
+<div align="center">
 
-Para usar um projeto Firebase diferente, crie um arquivo `.env` (copie de `.env.example`)
-e preencha as variáveis — elas têm prioridade sobre a configuração embutida. Do lado do
-Firebase:
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/inicio.png" width="420" /><br /><sub><b>Início</b> · resumo do dia e próximos vencimentos</sub></td>
+    <td align="center"><img src="docs/screenshots/clientes.png" width="420" /><br /><sub><b>Clientes</b> · status Pago automático</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/financeiro.png" width="420" /><br /><sub><b>Financeiro</b> · caixa, MRR e gráfico mensal</sub></td>
+    <td align="center"><img src="docs/screenshots/clientes-claro.png" width="420" /><br /><sub><b>Tema claro</b> · o app troca com um toque</sub></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/mobile-inicio.png" width="220" /><br /><sub><b>Início no celular</b></sub></td>
+    <td align="center"><img src="docs/screenshots/mobile-clientes.png" width="220" /><br /><sub><b>Clientes no celular</b></sub></td>
+  </tr>
+</table>
+
+<sub>Prints tirados no modo demonstração, com dados fictícios.</sub>
+
+</div>
+
+<br />
+
+## Funcionalidades
+
+- **Início** com o caixa do mês, a receita recorrente, os clientes ativos e a lista de próximos vencimentos, com destaque para quem está atrasado.
+- **Clientes** com cadastro completo: contato, forma e dia de pagamento, valor da mensalidade, status e observações livres.
+- **Links dentro do cliente** — quantos precisar, cada um com descrição, endereço e um espaço para comentar o que for útil (onde acessa, qual o plano, o que combinaram).
+- **Status Pago automático** — registrou a entrada e escolheu o cliente, ele fica como Pago no mês e sai dos próximos vencimentos. Sem pagamento, o status segue o dia de vencimento: a vencer, vence hoje ou atrasado.
+- **Financeiro** com lançamentos de entrada, cálculo da receita recorrente (MRR) e gráfico dos últimos seis meses.
+- **Login só com Google** e lista de e-mails autorizados, protegida também nas regras do banco.
+- **Sincronização em tempo real** entre os três sócios, em qualquer aparelho.
+- **PWA instalável** no computador e no celular, com botão de instalar e aviso de nova versão.
+- **Tema claro e escuro**, com interface pensada para o celular (Android e iPhone, com respeito à área segura do aparelho).
+
+<br />
+
+## Tecnologias
+
+| Camada | Stack |
+|--------|-------|
+| **Linguagem** | TypeScript |
+| **Interface** | React 19 · Tailwind CSS v4 · lucide-react · fonte Manrope |
+| **Navegação** | React Router 7 |
+| **Gráficos** | Recharts |
+| **Autenticação** | Firebase Auth (Google) com lista de e-mails autorizados |
+| **Banco de dados** | Cloud Firestore, em tempo real |
+| **PWA** | vite-plugin-pwa (service worker, instalação e aviso de atualização) |
+| **Build e deploy** | Vite 6 · Vercel |
+
+<br />
+
+## Arquitetura
+
+O acesso aos dados fica isolado numa camada única, o `repo`, que fala com o Firestore quando há nuvem ou com o armazenamento do navegador no modo demonstração. As telas não precisam saber onde os dados moram.
+
+```
+src/
+├── components/     # Layout, PageHeader, UpdatePrompt, InstallButton e o kit de UI
+├── context/        # AuthContext (login) e ThemeContext (claro/escuro)
+├── hooks/          # useColecoes (dados em tempo real) e useInstallPrompt
+├── lib/
+│   ├── firebase.ts # config do Firebase e lista de e-mails autorizados
+│   ├── repo.ts     # camada de dados (Firestore ou localStorage)
+│   └── utils.ts    # moeda, datas e regras de vencimento e pagamento
+├── pages/          # Login, Dashboard, Clientes e Financeiro
+└── types.ts        # tipos de Cliente, Lançamento e Link
+```
+
+### Segurança dos dados
+
+Como o app fala direto com o Firestore, a proteção fica nas **regras de segurança**: só as contas da lista conseguem ler ou escrever, e todo o resto é negado por padrão. O login com Google sozinho não basta.
+
+```js
+// firestore.rules
+function emailAutorizado() {
+  return request.auth != null &&
+    request.auth.token.email in [
+      'socia1@exemplo.com',
+      'socia2@exemplo.com',
+      'socio3@exemplo.com'
+    ];
+}
+
+match /{document=**} {
+  allow read, write: if emailAutorizado();
+}
+```
+
+<br />
+
+## Como rodar localmente
+
+O projeto já vem ligado à nuvem da DSS Hub (a configuração pública do Firebase fica embutida como reserva), então o `npm run dev` já usa o login Google real e o banco em nuvem. É preciso ter o Node instalado.
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/Danyyks/dss-hub-dashboard.git
+cd dss-hub-dashboard
+
+# 2. Instale as dependências e rode
+npm install
+npm run dev
+```
+
+3. Abra [http://localhost:5173](http://localhost:5173).
+
+**Modo demonstração.** Para mexer na interface sem logar com o Google, rode com o login fictício. Os dados ficam salvos só no navegador.
+
+```bash
+# macOS e Linux
+VITE_DEMO=1 npm run dev
+
+# Windows (PowerShell)
+$env:VITE_DEMO=1; npm run dev
+```
+
+**Apontando para outro Firebase.** Copie `.env.example` para `.env` e preencha as variáveis, que têm prioridade sobre a configuração embutida. Do lado do Firebase:
 
 1. Em Authentication, ative a entrada com Google.
 2. Em Firestore Database, crie o banco em modo produção.
-3. Em `VITE_ALLOWED_EMAILS`, coloque os e-mails autorizados a entrar, separados por
-   vírgula. Só esses conseguem logar.
-4. Publique as regras do arquivo `firestore.rules` no Firestore, ajustando a mesma lista
-   de e-mails. É isso que garante que só a equipe acessa os dados.
+3. Em `VITE_ALLOWED_EMAILS`, coloque os e-mails autorizados, separados por vírgula.
+4. Publique as regras do arquivo `firestore.rules`, com a mesma lista de e-mails.
 
-## Publicando na Vercel
+**Publicando na Vercel.** Suba o projeto no GitHub e importe na Vercel escolhendo o framework Vite. Repita as chaves do `.env` nas variáveis de ambiente e, no Firebase, adicione o domínio da Vercel em Authentication, na lista de domínios autorizados.
 
-Suba o projeto no GitHub e importe na Vercel escolhendo o framework Vite. Nas variáveis
-de ambiente da Vercel, repita as mesmas chaves do `.env`. Por fim, no Firebase, em
-Authentication, adicione o domínio da Vercel à lista de domínios autorizados para o login
-funcionar em produção.
+<br />
 
-## Como o código está organizado
+## Roadmap
 
-O projeto é feito em React com Vite e TypeScript, estilizado com Tailwind. O acesso aos
-dados fica isolado em uma camada única que fala com o Firestore quando há nuvem ou com o
-armazenamento local quando está em demonstração, então as telas não precisam saber onde
-os dados moram. As páginas ficam em `src/pages`, os componentes reutilizáveis em
-`src/components` e a base de dados e utilitários em `src/lib`.
+- [ ] **Alertas de vencimento** — aviso no painel e notificação push no dia da cobrança.
+- [ ] **Linha do tempo por cliente** — histórico do relacionamento.
+- [ ] **Divisão de lucro** entre os três sócios.
+- [ ] Relatórios e exportação em CSV, com resumo mensal.
+- [ ] Permissões diferentes por sócio.
+
+<br />
+
+## Autor
+
+Feito por **Dany Jonathan Bueno** — estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor em formação, sócio da DSS Hub Tech.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/danyyjonathan)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/danyyjonathan)
+[![Gmail](https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](https://mail.google.com/mail/?view=cm&fs=1&to=danyy.jonathan@gmail.com)
+
+<br />
+
+<div align="center">
+<sub>DSS Hub · painel interno da DSS Hub Tech · React + TypeScript + Firebase</sub>
+</div>
