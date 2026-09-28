@@ -181,16 +181,6 @@ $env:VITE_DEMO=1; npm run dev
 
 <br />
 
-## Autor
-
-Feito por **Dany Jonathan Bueno** — estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor em formação, sócio da DSS Hub Tech.
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/danyyjonathan)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/danyyjonathan)
-[![Gmail](https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](https://mail.google.com/mail/?view=cm&fs=1&to=danyy.jonathan@gmail.com)
-
-<br />
-
 <div align="center">
 <sub>DSS Hub · painel interno da DSS Hub Tech · React + TypeScript + Firebase</sub>
 </div>
