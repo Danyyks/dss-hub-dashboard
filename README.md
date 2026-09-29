@@ -182,5 +182,5 @@ $env:VITE_DEMO=1; npm run dev
 <br />
 
 <div align="center">
-<sub>DSS Hub · painel interno da DSS Hub Tech · React + TypeScript + Firebase</sub>
+<sub>é noix jacaré</sub>
 </div>
